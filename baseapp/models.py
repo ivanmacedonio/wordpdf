@@ -18,4 +18,3 @@ class FileModel(models.Model):
     def __str__(self):
         return f'{self.word} in {self.line} by {self.user}'
     
-    
