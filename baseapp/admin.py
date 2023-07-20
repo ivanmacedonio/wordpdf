@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import WordHistory
 
-# Register your models here.
+admin.site.register(WordHistory)
+
+

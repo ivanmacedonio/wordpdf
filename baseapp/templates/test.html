@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Búsqueda y resaltado de palabras</title>
+    <style>
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contenido de ejemplo</h1>
+    <div id="content">
+        <!-- Texto real de ejemplo -->
+        <p>En el corazón de una tierra salvaje y remota, en la lejana Mongolia, un niño llamado Temüjin lucha por sobrevivir. Después de la muerte de su padre, es abandonado por su tribu y se ve obligado a enfrentar los peligros del mundo.</p>
+        <p>Temüjin aprende rápidamente las habilidades necesarias para la supervivencia, pero el destino le tiene preparada una sorpresa. A través de la amistad con un viajero solitario, descubre su verdadero destino: unificar las tribus nómadas de Mongolia y convertirse en el gran Genghis Khan.</p>
+        <p>El camino hacia su destino está lleno de desafíos, traiciones y batallas, pero Temüjin está decidido a cumplir su destino y forjar un imperio que se extienda por todo el mundo conocido.</p>
+        <p>Ahora, con su astucia, liderazgo y valentía, Genghis Khan lidera a su pueblo en una aventura épica, conquistando territorios y dejando una huella indeleble en la historia de la humanidad.</p>
+    </div>
+
+    <input type="text" id="searchWord" placeholder="Buscar palabra">
+    <button onclick="highlight()">Buscar y resaltar</button>
+    <p id="result">La palabra se encontró en el renglón: </p>
+
+    <script>
+        const resultElement = document.getElementById('result');
+
+        function highlight() {
+            const content = document.getElementById('content');
+            const searchWord = document.getElementById('searchWord').value;
+
+            const regex = new RegExp(searchWord, 'gi'); // 'gi' para que busque de forma global e insensible a mayúsculas/minúsculas
+
+            const highlightedContent = content.innerHTML.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+            content.innerHTML = highlightedContent;
+
+            const lineNumber = getLineNumber(content.innerHTML, searchWord);
+            resultElement.innerText = `La palabra se encontró en el renglón: ${lineNumber}`;
+        }
+
+        function getLineNumber(content, searchWord) {
+            const lines = content.split('<br>');
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                if (line.indexOf(searchWord) !== -1) {
+                    return i + 1; // Sumamos 1 porque el índice del array comienza en 0, pero queremos mostrar el número de renglón real
+                }
+            }
+            return 0; // Si no se encuentra la palabra en ninguna línea, devolvemos 0
+        }
+    </script>
+</body>
+</html>

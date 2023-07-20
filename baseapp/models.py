@@ -18,6 +18,13 @@ class WordHistory(models.Model):
     def __str__(self):
         return self.word
     
+    def to_dict(self):
+        return {
+            'word': self.word,
+            'user': self.user.username,
+            # Agrega otros campos que necesites para la plantilla
+        }
+    
 class FileModel(models.Model):
     filedata = models.FileField(upload_to='uploads/',
                                 validators=[
